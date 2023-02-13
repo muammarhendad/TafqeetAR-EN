@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ar" dir="rtl" id="main_html">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tafqeet Arabic</title>
+
+        <link rel="stylesheet" href="Test_css.css">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cairo">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Patua One">
+
+        <link id="en_ltr" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link id="ar_rtl" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" integrity="sha384-WJUUqfoMmnfkBLne5uxXj+na/c7sesSJ32gI7GfCk4zO4GthUKhSEGyvQ839BC51" crossorigin="anonymous">
+
+  
+        <script src="TafqeetJs.js"></script>
+        <script>
+            function main(){ 
+
+              var fraction = document.getElementById("txt").value.split(".");    
+
+              if(document.getElementById("txt").value.length==0&&document.getElementById("rido_Arabic").checked==true)
+              {
+                document.getElementById ("demo").innerHTML="لا يوجد رقم مدرج!!! ";
+                return false;
+              }
+              else if(document.getElementById("txt").value.length==0&&document.getElementById("rido_English").checked==true){
+                document.getElementById ("demo").innerHTML="There is no number in text box !!!";
+                return false;
+              }
+              
+              if(document.getElementById("rido_English").checked==true)
+              {
+                document.getElementById ("demo").innerHTML=toWords(document.getElementById("txt").value)
+                return false;
+              }
+
+               if (fraction.length == 2){
+                  document.getElementById ("demo").innerHTML =  tafqeet(fraction[0]) + " فاصلة " + tafqeet (fraction[1]);
+               }
+                else if (fraction.length == 1){
+               document.getElementById ("demo").innerHTML =  tafqeet(fraction[0]);
+              }
+              else if(fraction.length>2) {
+                document.getElementById ("demo").innerHTML="يرجى ادخال الرقم بصورة صحيحصة";
+                return false;
+              }
+            
+          }
+         </script> 
+
+<script>
+document.addEventListener('input',(e)=>{
+if(e.target.getAttribute('name')=="lang")
+if(e.target.value=="AR"){
+  add_link("rtl");
+  document.getElementById("main_html").dir = "rtl";
+  document.getElementById("main_html").lang = "ar";
+  document.getElementById ("Num").innerHTML="الــرقــم";
+  document.getElementById ("exampleModalLabel").innerHTML="الــرقــم بالعربي";
+  //document.getElementById ("btn").innerHTML="تحويل الارقام الى كتابة ";
+
+}
+else if(e.target.value=="EN"){
+ add_link("ltr");
+ document.getElementById ("txt").value="";
+  document.getElementById("main_html").dir = "ltr";
+  document.getElementById("main_html").lang = "en";
+  document.getElementById ("Num").innerHTML="Number";
+  document.getElementById ("exampleModalLabel").innerHTML=" Number toWords In English ";
+ // document.getElementById ("btn").innerHTML="Press To Convert Number";
+}
+})
+</script>
+
+    </head>
+    <body >
+      <div class="container text-center">
+        <div class="row g-4 align-items-center" id="mainDiv">
+           <div class="col-12">
+             <div class="card">
+               <div class="card-body">
+                <h4 class="card-title">Choose Language ( اختر اللغة )</h4>
+                <div>
+                  <label id="r1">
+                    <input type="radio" id="rido_Arabic" value="AR" class="option-input radio" name="lang" checked />
+                    العربية (Arabic)
+                  </label>
+                  <label id="r2">
+                    <input type="radio" id="rido_English" value="EN" class="option-input radio" name="lang"/>
+                    الانجليزية (English)
+                  </label>
+                </div>
+               </div>
+
+             </div>
+
+           </div>
+            <div class="col-auto">
+                <label for="inputPassword6" class="col-form-label" id="Num" style="font-family:Cairo;font-size: 22px; font-weight: bold;" >الــرقــم </label>
+            </div>
+            <div class="col-auto">
+                <input type="text" id="txt" class="form-control" onkeypress="return isNumber(event)" />
+              </div>
+               <div class="col-auto">
+                <button id="btn" onclick="main();" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                   <span id="btn_spn">
+                    Press To Convert Number 
+                   </span>               
+                  </button>
+               </div>
+
+        </div>
+     
+      </div>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">الرقم بالعربي</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h4 id="demo"></h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    </body>
+</html>
